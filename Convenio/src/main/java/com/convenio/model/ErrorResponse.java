@@ -1,4 +1,11 @@
 package com.convenio.model;
 
-public class Error {
+import lombok.AllArgsConstructor;
+import lombok.Data;
+
+@Data
+@AllArgsConstructor
+public class ErrorResponse {
+  private String code;
+  private String message;
 }

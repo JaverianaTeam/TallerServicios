@@ -24,7 +24,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ConvenioResponse'
-
+        '404':
+          $ref: '#/components/responses/NotFound'
 
   /byName/{name}:
     get:
@@ -47,7 +48,7 @@ paths:
           $ref: '#/components/responses/NotFound'
 components:
   schemas:
-    Error:
+    ErrorResponse:
       type: object
       properties:
         code:
@@ -63,7 +64,7 @@ components:
         idConvenio:
           type: integer
           description: Identificador del convenio de recaudo
-        nomber:
+        nombre:
           type: string
           description: nombre del convenio de recaudo
     ArrayOfConvenio:
@@ -76,4 +77,4 @@ components:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/Error'
+            $ref: '#/components/schemas/ErrorResponse'

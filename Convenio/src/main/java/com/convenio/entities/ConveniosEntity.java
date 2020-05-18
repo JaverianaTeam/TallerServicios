@@ -1,9 +1,34 @@
 package com.convenio.entities;
 
+import com.convenio.dto.ConvenioDTO;
+
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.Objects;
 
+@SqlResultSetMapping(name = "convenioMapping",
+        classes = {
+                @ConstructorResult(
+                        targetClass = ConvenioDTO.class,
+                        columns = {
+                                @ColumnResult(name = "partnerId", type = Integer.class),
+                                @ColumnResult(name = "partnerName", type = String.class)
+                        }
+                )
+        }
+)
+@NamedNativeQueries(value = {
+        @NamedNativeQuery(name = "convenio.queryById",
+                query = "Select partner_Id as partnerId, partner_name as partnerName" +
+                        "  From conveniosDB.convenios" +
+                        "  where partner_id = :partnerId",
+                resultSetMapping = "convenioMapping"),
+        @NamedNativeQuery(name = "convenio.queryByName",
+                query = "Select partner_Id as partnerId, partner_name as partnerName" +
+                        "  From conveniosDB.convenios" +
+                        "  where coalesce(lower(partner_name), '') like concat('%', lower(:partnerName), '%')",
+                resultSetMapping = "convenioMapping")
+})
 @Entity
 @Table(name = "convenios", schema = "conveniosDB", catalog = "")
 public class ConveniosEntity {

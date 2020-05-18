@@ -1,4 +1,11 @@
 package com.convenio.exception;
 
-public class ConvenioNotFoundException {
+import lombok.NoArgsConstructor;
+
+@NoArgsConstructor
+public class ConvenioNotFoundException extends RuntimeException {
+
+  public ConvenioNotFoundException(String message) {
+    super(message);
+  }
 }
