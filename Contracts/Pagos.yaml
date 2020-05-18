@@ -1,0 +1,111 @@
+openapi: 3.0.0
+info:
+  version: '1.0'
+  title: 'Bill Management'
+  description: 'Permite consultar, pagar y compensar las facturas de los proveedores registrados'
+servers:
+  - url: http://localhost/pagos
+paths:
+  /factura:
+    get:
+      summary: Retorna el valor a pagar de la factura
+      description: Permite consultar el valor a pagar de una factura para un convenio registrado
+      parameters:
+        - in: query
+          name: id
+          schema:
+            type: integer
+          description: Identificador del convenio de recaudo
+        - in: query
+          name: referencia
+          schema:
+            type: number
+          description: Número de referencia de recaudo o factura
+      responses:
+        '200':
+          description: Un Objeto con el valor a pagar de la factura
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResultQuery'
+    post:
+      summary: Permite realizar el pago de la factura
+      requestBody:
+        description: Contiene la información necesaria para direccionar y realizar el pago
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PaymentRequest'
+      responses:
+        '200':
+          description: Operación exitosa, ver mensaje con el resultado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaymentResponse'
+        '400':
+          description: Bad request, hay algún error en los parámetros especificados
+        '404':
+          description: Número de factura no encontrado
+    delete:
+      summary: Permite realizar la compensación de la factura
+      parameters:
+        - in: query
+          name: id
+          schema:
+            type: integer
+          description: Identificador del convenio de recaudo
+        - in: query
+          name: referencia
+          schema:
+            type: number
+          description: Número de referencia de recaudo o factura
+        - in: query
+          name: valorCompensar
+          schema:
+            type: integer
+          description: Valor a compensar de la factura
+      responses:
+        '200':
+          description: Operación exitosa, ver mensaje con el resultado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaymentResponse'
+        '400':
+          description: Bad request, hay algún error en los parámetros especificados
+        '404':
+          description: Número de factura no encontrado
+
+components:
+  schemas:
+    ResultQuery:
+      type: object
+      properties:
+        valorPagar:
+          type: integer
+    PaymentRequest:
+      type: object
+      properties:
+        id:
+          type: integer
+        referencia:
+          type: integer
+        valor:
+          type: number
+    PaymentResponse:
+      type: object
+      properties:
+        referencia:
+          type: integer
+          description: Número de referencia de recaudo o factura.
+        mensaje:
+          type: string
+          description: Mensaje con el resultado de la transacción
+        nroTransaccion:
+          type: string
+          description: Número de la transacción de pago o número de aprobación
+        valor:
+          type: number
+          description: valor pagado de la factura.

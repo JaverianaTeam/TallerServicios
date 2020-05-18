@@ -1,0 +1,79 @@
+openapi: 3.0.0
+info:
+  version: '1.0'
+  title: 'Servicio de conculta de Convenios de Recaudo'
+  description: 'Permite realizar la consulta de los convenios de recuado por id del convenio o por nombre.'
+servers:
+  - url: http://localhost:8080/convenios
+    description: Servicio de convenio de recaudo
+paths:
+  /byId/{id}:
+    get:
+      summary: obtiene la información del convenio de racaudo con base en el id
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+          description: identificador del convenio que se desea consultar
+      responses:
+        '200':
+          description: Consulta exitosa
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConvenioResponse'
+
+
+  /byName/{name}:
+    get:
+      summary: obtiene la información del convenio de racaudo con base en el id
+      parameters:
+        - in: path
+          name: name
+          schema:
+            type: string
+          required: true
+          description: nombre o parte del nombre del convenio que se desea consultar
+      responses:
+        '200':
+          description: Consulta exitosa
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ArrayOfConvenio'
+        '404':
+          $ref: '#/components/responses/NotFound'
+components:
+  schemas:
+    Error:
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+      required:
+        - code
+        - message
+    ConvenioResponse:
+      type: object
+      properties:
+        idConvenio:
+          type: integer
+          description: Identificador del convenio de recaudo
+        nomber:
+          type: string
+          description: nombre del convenio de recaudo
+    ArrayOfConvenio:
+      type: array
+      items:
+        $ref: '#/components/schemas/ConvenioResponse'
+  responses:
+    NotFound:
+      description: Quiere decir que no se encontraron registros que cumplan el criterio de consulta
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'

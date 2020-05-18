@@ -1,0 +1,53 @@
+openapi: 3.0.0
+info:
+  version: '1.0'
+  title: 'Noficación de resultado de transacciones a usuarios'
+  description: 'Permite notificarle al usuario el resultado de una transacción de pago.'
+  contact:
+    name: API Support
+    email: support@example.com
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html  
+servers: 
+  - url: http://localhost:8080/notificaciones
+    description: Servicio de notificaciones del aplicativo de gestión de pagos
+paths:
+  /notify:
+    post:
+      summary: Permite enviar la notificación del resultado de un pago a un usuario
+      requestBody:
+        description: Recibe los datos necesarios para enviar la notificación
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NotificationRequest'
+      responses:
+        '201': 
+          description: Notificación enviada con éxito
+        '500':
+          description: No se pudo enviar el correo de notificación
+components:
+  schemas:
+    NotificationRequest:
+      type: object
+      properties:
+        nombreConvenio:
+          type: string
+          description: Nombre del convenio en el que se realizó el pago
+        nombreUsuario:
+          type: string
+          description: Nombre del usuario al que se desea notificar
+        email:
+          type: string
+          description: Email del usuario al que se envía la notificación
+        referencia:
+          type: integer
+          description: Número de referencia de recaudo
+        valor:
+          type: integer
+          description: Valor de la factura
+        mensaje:
+          type: string
+          description: Mensaje que se envía al usuario
