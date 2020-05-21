@@ -35,7 +35,7 @@ paths:
           description: Identificador del usuario que se desea consultar
           required: true
       responses:
-          '201':
+          '200':
             description: Usuario eliminado
           '404':
             description: No se encontró un registro de usuario con ese Id
@@ -85,16 +85,16 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: '#/components/schemas/ErrorResponse'
         '404':
           description: El usuario que se quiere actualizar no existe
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: '#/components/schemas/ErrorResponse'
 components:
   schemas:
-    Error:
+    ErrorResponse:
       type: object
       properties:
         code:

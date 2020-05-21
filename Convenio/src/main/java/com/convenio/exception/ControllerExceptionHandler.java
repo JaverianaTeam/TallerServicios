@@ -12,6 +12,6 @@ public class ControllerExceptionHandler {
   @ExceptionHandler(ConvenioNotFoundException.class)
   @ResponseStatus(HttpStatus.NOT_FOUND)
   public ResponseEntity<ErrorResponse> handleConvenioNotFound(RuntimeException ex) {
-    return new ResponseEntity<ErrorResponse>(new ErrorResponse("404", ex.getMessage()), HttpStatus.NOT_FOUND);
+    return new ResponseEntity<>(new ErrorResponse("404", ex.getMessage()), HttpStatus.NOT_FOUND);
   }
 }
