@@ -3,6 +3,12 @@ info:
   version: '1.0'
   title: 'Servicio de conculta de Convenios de Recaudo'
   description: 'Permite realizar la consulta de los convenios de recuado por id del convenio o por nombre.'
+  license:
+    name: "Apache 2.0"
+    url: "http://www.apache.org/licences/LICENSE-2.0.html"
+  contact:
+    name: "Byron Martínez, Edgar Javier Rivera, Rafael Ocampo"
+    email: "bmartinezm@javeriana.edu.co, ejrivera@javeriana.edu.co, jrafael.ocampo@javeriana.edu.co"
 servers:
   - url: http://localhost:8080/convenios
     description: Servicio de convenio de recaudo
@@ -23,7 +29,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ConvenioResponse'
+                $ref: '#/components/schemas/ConvenioObject'
         '404':
           $ref: '#/components/responses/NotFound'
 
@@ -46,8 +52,104 @@ paths:
                 $ref: '#/components/schemas/ArrayOfConvenio'
         '404':
           $ref: '#/components/responses/NotFound'
+  /save:
+    post:
+      description: "permite registrar un nuevo proveedor"
+      requestBody:
+        description: Información del proveedor o convenio que se desea registrar
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ConvenioObject'
+      responses:
+        200:
+          description: "Proveedor registrado exitosamente"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConvenioObject'
+    put:
+      description: "permite actualizar la infromación de un nuevo proveedor registrado"
+      requestBody:
+        description: Información del proveedor o convenio que se desea registrar
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ConvenioObject'
+      responses:
+        200:
+          description: "Proveedor registrado exitosamente"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConvenioObject'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
 components:
   schemas:
+    HeaderService:
+      description: Objeto que describe los encabezados que se deben usar al llamar al servicio
+      type: object
+      properties:
+        headerName:
+          type: string
+          description: Nombre del encabezado
+        headerValue:
+          type: string
+          description: Valor que se debe poner al encabezado
+
+    ServiceDescription:
+      description: Objeto que representa los servicios que exponen los proveedores para soportar las operaciones del convenio, (consultar, pagar, compensar)
+      type: object
+      properties:
+        serviceType:
+          type: string
+          description: Indica el tipo se servicio que se debe consumir 1 - Rest, 2 - SOAP
+          enum:
+            - "REST"
+            - "SOAP"
+          default: "REST"
+        serviceUrl:
+          type: string
+          description: Url del endpoint del servicio que se va a consumir
+        operation:
+          type: string
+          description: Operación que habilita el servicio 1 - Consultar, 2 - Pagar y 3 - Compensar
+          enum:
+            - "CONSULTAR"
+            - "PAGAR"
+            - "COMPENSAR"
+          default: "CONSULTAR"
+        method:
+          type: string
+          description: Para los servicios SOAP representa el SOAPAction, para los Rest los métodos GET, POST, PUT, DELETE, etc...
+        serviceHeaders:
+          description: Aquí se especifican los encabezados que deben enviarse para consumir el servicio.
+          type: array
+          items:
+            $ref: '#/components/schemas/HeaderService'
+        requestPayload:
+          description: Contiene el cuerpo del payload con los campos definidos para colocar los valores que se van a enviar
+          type: string
+
+    ConvenioObject:
+      type: object
+      properties:
+        idConvenio:
+          type: integer
+          description: Identificador del convenio de recaudo
+        nombre:
+            type: string
+            description: nombre del convenio de recaudo
+        descripcion:
+          type: string
+          description: Descripción del tipo de convenio
+        configuracion:
+            type: array
+            items:
+              $ref: '#/components/schemas/ServiceDescription'
+
     ErrorResponse:
       type: object
       properties:
@@ -58,6 +160,7 @@ components:
       required:
         - code
         - message
+
     ConvenioResponse:
       type: object
       properties:
@@ -67,10 +170,12 @@ components:
         nombre:
           type: string
           description: nombre del convenio de recaudo
+
     ArrayOfConvenio:
       type: array
       items:
         $ref: '#/components/schemas/ConvenioResponse'
+
   responses:
     NotFound:
       description: Quiere decir que no se encontraron registros que cumplan el criterio de consulta

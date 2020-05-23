@@ -1,0 +1,32 @@
+Accesos MySQL
+User:
+admin
+Password:
+Password.
+Endpoint:
+tallerdeservicios.czw6yxxtkfsk.us-east-1.rds.amazonaws.com
+
+https://github.com/springdoc/springdoc-openapi-demos/blob/master/sample-springdoc-openapi-book-service/src/main/java/org/springdoc/demo/services/book/controller/BookController.java
+
+CREATE TABLE `usuarios` (
+  `user_id` int(11) NOT NULL AUTO_INCREMENT,
+  `status` tinyint(4) NOT NULL,
+  `user_email` varchar(255) NOT NULL,
+  `user_name` varchar(255) NOT NULL,
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `created_at` timestamp NOT NULL,
+  `password` char(64) NOT NULL,
+  PRIMARY KEY (`user_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1
+
+
+----------------------------------------------------CONSULTA-------------------------------------------------------------------------------
+<200,<?xml version='1.0' encoding='UTF-8'?><S:Envelope xmlns:S="http://schemas.xmlsoap.org/soap/envelope/"><S:Body><ResultadoConsulta xmlns="http://www.servicios.co/pagos/schemas"><referenciaFactura><referenciaFactura>1234000057</referenciaFactura></referenciaFactura><totalPagar>7765.56</totalPagar></ResultadoConsulta></S:Body></S:Envelope>,[Server:"Payara Server  5.183 #badassfish", X-Powered-By:"Servlet/4.0 JSP/2.3 (Payara Server  5.183 #badassfish Java/Oracle Corporation/1.8)", Content-Type:"text/xml; charset=utf-8", Transfer-Encoding:"chunked", X-Frame-Options:"SAMEORIGIN"]>
+ 
+----------------------------------------------------PAGO-------------------------------------------------------------------------------
+<200,<?xml version='1.0' encoding='UTF-8'?><S:Envelope xmlns:S="http://schemas.xmlsoap.org/soap/envelope/"><S:Body><Resultado xmlns="http://www.servicios.co/pagos/schemas"><referenciaFactura><referenciaFactura>1234000057</referenciaFactura></referenciaFactura><mensaje>Hubo un problema durante el pago de la factura</mensaje></Resultado></S:Body></S:Envelope>,[Server:"Payara Server  5.183 #badassfish", X-Powered-By:"Servlet/4.0 JSP/2.3 (Payara Server  5.183 #badassfish Java/Oracle Corporation/1.8)", Content-Type:"text/xml; charset=utf-8", Transfer-Encoding:"chunked", X-Frame-Options:"SAMEORIGIN"]>
+ 
+----------------------------------------------------COMPENSACION-------------------------------------------------------------------------------
+<200,<?xml version='1.0' encoding='UTF-8'?><S:Envelope xmlns:S="http://schemas.xmlsoap.org/soap/envelope/"><S:Body><Resultado xmlns="http://www.servicios.co/pagos/schemas"><referenciaFactura><referenciaFactura>1234000057</referenciaFactura></referenciaFactura><mensaje>Factura Compensada Exitosamente</mensaje></Resultado></S:Body></S:Envelope>,[Server:"Payara Server  5.183 #badassfish", X-Powered-By:"Servlet/4.0 JSP/2.3 (Payara Server  5.183 #badassfish Java/Oracle Corporation/1.8)", Content-Type:"text/xml; charset=utf-8", Transfer-Encoding:"chunked", X-Frame-Options:"SAMEORIGIN"]>
+
+

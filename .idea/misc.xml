@@ -8,6 +8,7 @@
       <list>
         <option value="$PROJECT_DIR$/Convenio/pom.xml" />
         <option value="$PROJECT_DIR$/Usuario/pom.xml" />
+        <option value="$PROJECT_DIR$/Dispatcher/pom.xml" />
       </list>
     </option>
   </component>

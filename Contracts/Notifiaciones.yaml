@@ -3,12 +3,12 @@ info:
   version: '1.0'
   title: 'Noficación de resultado de transacciones a usuarios'
   description: 'Permite notificarle al usuario el resultado de una transacción de pago.'
-  contact:
-    name: API Support
-    email: support@example.com
   license:
-    name: Apache 2.0
-    url: https://www.apache.org/licenses/LICENSE-2.0.html  
+    name: "Apache 2.0"
+    url: "http://www.apache.org/licences/LICENSE-2.0.html"
+  contact:
+      name: "Byron Martínez, Edgar Javier Rivera, Rafael Ocampo"
+      email: "bmartinezm@javeriana.edu.co, ejrivera@javeriana.edu.co, jrafael.ocampo@javeriana.edu.co"
 servers: 
   - url: http://localhost:8080/notificaciones
     description: Servicio de notificaciones del aplicativo de gestión de pagos

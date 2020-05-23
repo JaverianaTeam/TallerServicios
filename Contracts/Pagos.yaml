@@ -3,6 +3,12 @@ info:
   version: '1.0'
   title: 'Bill Management'
   description: 'Permite consultar, pagar y compensar las facturas de los proveedores registrados'
+  license:
+    name: "Apache 2.0"
+    url: "http://www.apache.org/licences/LICENSE-2.0.html"
+  contact:
+      name: "Byron Martínez, Edgar Javier Rivera, Rafael Ocampo"
+      email: "bmartinezm@javeriana.edu.co, ejrivera@javeriana.edu.co, jrafael.ocampo@javeriana.edu.co"
 servers:
   - url: http://localhost/pagos
 paths:
