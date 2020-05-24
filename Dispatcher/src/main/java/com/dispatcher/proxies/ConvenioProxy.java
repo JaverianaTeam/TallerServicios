@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 /**
  * Orquestación con el servicio de Convenios para traer la información del convenio y la configuración.
  */
-@FeignClient(name="convenio-service", url = "${modval.convenioService.url}")
+@FeignClient(name = "convenio-service", url = "${modval.convenioService.url}")
 public interface ConvenioProxy {
 
   @GetMapping(value = "/convenios/info/{id}")

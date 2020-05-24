@@ -1,6 +1,6 @@
 package com.dispatcher.clients;
 
-import com.dispatcher.model.RemoteResponse;
+import com.dispatcher.model.PaymentResponse;
 import com.dispatcher.model.ServiceDescription;
 import com.fasterxml.jackson.databind.json.JsonMapper;
 import org.springframework.http.HttpEntity;
@@ -29,7 +29,7 @@ public class GenericRestClient extends AGenericClient {
   }
 
   @Override
-  public RemoteResponse callService(ServiceDescription info) {
+  public PaymentResponse callService(ServiceDescription info) {
     HttpEntity<String> formEntity = new HttpEntity<>(info.getRequestPayload(), getHeaders(info.getServiceHeaders()));
     ResponseEntity<String> rta = rt.exchange(info.getServiceUrl(), getHttpVerb(info.getMethod()), formEntity, String.class);
     return processRta(new JsonMapper(), rta.getBody(), info.getReferencePath(), info.getValuePath(), info.getMessagePath());
