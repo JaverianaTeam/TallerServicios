@@ -173,4 +173,15 @@ echo "Security Group: ${AWS_SG}"
 echo "Node Instance Role: ${NODE_INSTANCE_ROLE}"
 echo "=================================="
 
-echo "Do not forget to configure the kubectl tool."
+
+#Trying to configure automatically the kubectl.
+echo "Trying to update the kubeconfig... "
+{
+aws eks --region ${AWS_REGION} update-kubeconfig --name eks-${STACK_NAME} --profile ${AWS_PROFILE} && echo "Creating a new kubeconfig"
+} || { # catch
+     echo "Error configuring updating  the kubeconfig  - Error";
+     echo "Do not forget to configure the kubectl tool..."
+     exit -4
+}
+
+echo "$(date): Kubeconfig was set, Enjoy..."
