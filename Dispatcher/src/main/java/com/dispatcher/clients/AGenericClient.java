@@ -1,17 +1,15 @@
 package com.dispatcher.clients;
 
 import com.dispatcher.model.HeaderService;
-import com.dispatcher.model.RemoteResponse;
+import com.dispatcher.model.PaymentResponse;
 import com.dispatcher.model.ServiceDescription;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import org.springframework.http.HttpHeaders;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 import java.util.regex.Pattern;
 
 public abstract class AGenericClient {
@@ -35,13 +33,13 @@ public abstract class AGenericClient {
     }
   }
 
-  protected RemoteResponse processRta(ObjectMapper mapper, String data, String pathReference, String pathValue, String pathMessage) {
-    RemoteResponse result =new RemoteResponse();
+  protected PaymentResponse processRta(ObjectMapper mapper, String data, String pathReference, String pathValue, String pathMessage) {
+    PaymentResponse result = new PaymentResponse();
     try {
       JsonNode rootNode = mapper.readTree(data);
-      result.setReference(processPath(rootNode, pathReference));
-      result.setValue(processPath(rootNode, pathValue));
-      result.setMessage(processPath(rootNode, pathMessage));
+      result.setReferencia(processPath(rootNode, pathReference));
+      result.setValor(processPath(rootNode, pathValue));
+      result.setMensaje(processPath(rootNode, pathMessage));
       return result;
     } catch (JsonProcessingException e) {
       e.printStackTrace();
@@ -49,6 +47,6 @@ public abstract class AGenericClient {
     }
   }
 
-  public abstract RemoteResponse callService(ServiceDescription info);
+  public abstract PaymentResponse callService(ServiceDescription info);
 
 }

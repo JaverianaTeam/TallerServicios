@@ -1,12 +1,13 @@
 package com.dispatcher.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-public class RemoteResponse {
-  private String reference;
-  private String value;
+@AllArgsConstructor
+public class ErrorResponse {
+  private String code;
   private String message;
 }

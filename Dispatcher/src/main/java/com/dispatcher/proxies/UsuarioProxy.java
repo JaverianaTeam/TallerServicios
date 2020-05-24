@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 /**
  * Orquestación con el servicio de Convenios para traer la información del usuario que está realizando el pago.
  */
-@FeignClient(name="usuario-service", url = "${modval.usuarioService.url}")
+@FeignClient(name = "usuario-service", url = "${modval.usuarioService.url}")
 public interface UsuarioProxy {
 
   @GetMapping(path = "/usuarios/api/{idUsuario}")
