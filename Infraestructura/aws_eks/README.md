@@ -11,3 +11,6 @@ Pre-requisitos:
 
 
 Una vez se cumpla con todos los requisitos anteriormente mencionados, se puede proceder a ejecutar el script de inicio, este script de inicio está compuesto por varios scripts de cloudformation con lo cuales se crea todos los componentes requeridos por el cluster de Kubernetes en AWS.
+
+Cloudformation Build:
+`./eks-cloudformation.sh`
