@@ -29,7 +29,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ConvenioObject'
+                $ref: '#/components/schemas/ConvenioResponse'
         '404':
           $ref: '#/components/responses/NotFound'
 
@@ -50,6 +50,25 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ArrayOfConvenio'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /info/{id}:
+    get:
+      summary: Obtiene la información detallada del convenio con su configuración
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+          description: identificador del convenio que se desea consultar
+      responses:
+        '200':
+          description: Consulta exitosa
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConvenioObject'
         '404':
           $ref: '#/components/responses/NotFound'
   /save:
@@ -103,6 +122,9 @@ components:
       description: Objeto que representa los servicios que exponen los proveedores para soportar las operaciones del convenio, (consultar, pagar, compensar)
       type: object
       properties:
+        configurationId:
+          type: integer
+          description: Identificado de la configuración del servicio.
         serviceType:
           type: string
           description: Indica el tipo se servicio que se debe consumir 1 - Rest, 2 - SOAP
@@ -132,7 +154,15 @@ components:
         requestPayload:
           description: Contiene el cuerpo del payload con los campos definidos para colocar los valores que se van a enviar
           type: string
-
+        referencePath:
+          description: Path dentro del objeto de respuesta del servicio, que apunta al atributo que contiene la referencia de pago
+          type: string
+        valuePath:
+          description: Path dentro del objeto de respuesta del servicio, que apunta al atributo que contiene el valor a pagar
+          type: string
+        messagePath:
+          description: Path dentro del objeto de respuesta del servicio, que apunta al atributo que el mensaje de respuesta
+          type: string
     ConvenioObject:
       type: object
       properties:

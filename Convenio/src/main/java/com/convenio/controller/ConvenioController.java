@@ -1,6 +1,7 @@
 package com.convenio.controller;
 
 import com.convenio.exception.ConvenioNotFoundException;
+import com.convenio.model.ConvenioObject;
 import com.convenio.model.ConvenioResponse;
 import com.convenio.services.ConvenioService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +31,11 @@ public class ConvenioController {
   @GetMapping(path = "byName/{name}")
   public List<ConvenioResponse> getConvenioByName(@PathVariable("name") String name) {
     return cs.getConvenioByName(name);
+  }
+
+  @GetMapping(path = "info/{id}")
+  public ConvenioObject getInfoConvenio(@PathVariable("id") Integer id) {
+    return cs.getInfoConvenio(id);
   }
 
 }

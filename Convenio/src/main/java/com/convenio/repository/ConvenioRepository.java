@@ -2,6 +2,7 @@ package com.convenio.repository;
 
 import com.convenio.dto.ConvenioDTO;
 import com.convenio.entities.ConveniosEntity;
+import com.convenio.model.ConvenioObject;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -18,4 +19,7 @@ public interface ConvenioRepository extends JpaRepository<ConveniosEntity, Integ
 
   @Query(name = "convenio.queryByName", nativeQuery = true)
   List<ConvenioDTO> getConvenioByName(@Param("partnerName") String partnerName);
+
+  @Query(name = "convenio2.queryById", nativeQuery = true)
+  Optional<ConvenioObject> getConvenioById2(@Param("partnerId") Integer partnerId);
 }

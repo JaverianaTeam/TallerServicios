@@ -30,3 +30,4 @@ CREATE TABLE `usuarios` (
 <200,<?xml version='1.0' encoding='UTF-8'?><S:Envelope xmlns:S="http://schemas.xmlsoap.org/soap/envelope/"><S:Body><Resultado xmlns="http://www.servicios.co/pagos/schemas"><referenciaFactura><referenciaFactura>1234000057</referenciaFactura></referenciaFactura><mensaje>Factura Compensada Exitosamente</mensaje></Resultado></S:Body></S:Envelope>,[Server:"Payara Server  5.183 #badassfish", X-Powered-By:"Servlet/4.0 JSP/2.3 (Payara Server  5.183 #badassfish Java/Oracle Corporation/1.8)", Content-Type:"text/xml; charset=utf-8", Transfer-Encoding:"chunked", X-Frame-Options:"SAMEORIGIN"]>
 
 
+http://spec.openapis.org/oas/v3.0.3#models-with-composition
