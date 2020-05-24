@@ -12,7 +12,7 @@ echo "Taller - Servicios"
 echo "Universidad Javeriana - Colombia"
 
 ### General Configuration variables
-STACK_NAME="ModVal-Stack2"
+STACK_NAME="ModVal-Stack"
 AWS_PROFILE="hneral"
 AWS_REGION="us-east-1"
 
@@ -173,4 +173,15 @@ echo "Security Group: ${AWS_SG}"
 echo "Node Instance Role: ${NODE_INSTANCE_ROLE}"
 echo "=================================="
 
-echo "Do not forget to configure the kubectl tool."
+
+#Trying to configure automatically the kubectl.
+echo "Trying to update the kubeconfig... "
+{
+aws eks --region ${AWS_REGION} update-kubeconfig --name eks-${STACK_NAME} --profile ${AWS_PROFILE} && echo "Creating a new kubeconfig"
+} || { # catch
+     echo "Error configuring updating  the kubeconfig  - Error";
+     echo "Do not forget to configure the kubectl tool..."
+     exit -4
+}
+
+echo "$(date): Kubeconfig was set, Enjoy..."
