@@ -7,7 +7,7 @@ info:
     url: "http://www.apache.org/licences/LICENSE-2.0.html"
   contact:
       name: "Byron Martínez, Edgar Javier Rivera, Rafael Ocampo"
-      email: "bmartinezm@javeriana.edu.co, ejrivera@javeriana.edu.co, jrafael.ocampo@javeriana.edu.co"
+      email: "bmartinezm@javeriana.edu.co"
 servers:
   - url: 'https://localhost:8080/usuarios'
     description: Servidor que contiene los servicios de gestión de usuarios
