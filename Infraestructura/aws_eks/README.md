@@ -34,5 +34,34 @@ Node Instance Role: arn:aws:iam::455314860156:role/worker-nodes-ModVal-Stack2-No
 
 Primero crea una nueva VPC, luego crea el cluster EKS y finalmente el grupo de Worker Nodes. El grupo de worker nodes está compuesto por 2 instancias EC2 activas t2.medium , con la posibilidad de crecer hasta 4 dependiendo de la carga. 
 
+<p>Una vez finalizada la creación de cluster EKS de Kubernetes, se debe adicionar el NodeInstanceRole a la configuración del cluster para permitir a los worker nodes unirse al cluster. Para automatizar este proceso se creó un script que hace esta tarea automáticamente. El script recibe como argumento el NodeInstanceRole, descarga un template de configuración, modifica el NodeInstanceRole correcto y lo aplica a la configuración del cluster.</p>
 
+<p><b>Nota:</b> se requiere haber configurado previamente la herramienta kubectl, apuntando al cluster creado en pasos anteriores. Para validar el contexto actual del kubectl, ejecutar el siguiente comando. </p>
+ 
+```
+kubectl config current-context
+```
 
+<p>Para adicionar el NodeInstanceRole a la configuración ejecute el siguiente comando.</p>
+
+```
+./apply-aws-authenticator.sh <NodeInstanceRole>
+```
+
+Para validar si los Worker Nodes se adicionaron correctamente al cluster, ejecute el siguiente comando. Como salida obtendrá los nodos activos en el cluster. 
+
+```
+kubectl get nodes
+```
+
+<p>Ejemplo de salida:</p>
+
+```
+bash-3.2$ kubectl get nodes
+NAME                              STATUS   ROLES    AGE   VERSION
+ip-192-169-133-155.ec2.internal   Ready    <none>   37m   v1.14.9-eks-1f0ca9
+ip-192-169-254-222.ec2.internal   Ready    <none>   37m   v1.14.9-eks-1f0ca9
+bash-3.2$
+```
+
+<p>Una vez compleados estos pasos, el cluster de Kubernetes está listo para que podamos desplegar las aplicaciones.</p>
