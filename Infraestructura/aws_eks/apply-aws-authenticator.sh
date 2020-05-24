@@ -22,11 +22,27 @@ curl -o aws-auth-cm.yaml https://amazon-eks.s3.us-west-2.amazonaws.com/cloudform
 }
 
 
+
 echo "Applying the AWS authenticator configuration map..." 
 
 var=$1
+echo ""
+echo ""
+echo ""
+echo "==============================================="
+echo "$(date)"
+echo "NodeInstanceRole: $var"
+
+read -p "Is the NodeInstanceRole value OK, type y/n? " -n 1 -r
+echo    # (optional) move to a new line
+if [[ ! $REPLY =~ ^[Yy]$ ]]
+then
+    [[ "$0" = "$BASH_SOURCE" ]] && echo "$(date): Exit, Bye ..." && exit 1 || return 1 # handle exits from shell or function but don't exit interactive shell
+fi
+
+
 {
-echo "NodeInstanceRole: $var" && var=$(echo "$var" | sed  "s,:,\\\:,g") && echo $var && var=$(echo "$var" | sed  "s,\/,\\\/,g") && echo $var && sed -i'.original' -e "s/rolearn.*/rolearn\:\ $var/g" aws-auth-cm.yaml && echo "$(date): aws-auth-cm.yaml edited" && kubectl apply -f aws-auth-cm.yaml 
+var=$(echo "$var" | sed  "s,:,\\\:,g") && echo $var && var=$(echo "$var" | sed  "s,\/,\\\/,g") && echo $var && sed -i'.original' -e "s/rolearn.*/rolearn\:\ $var/g" aws-auth-cm.yaml && echo "$(date): aws-auth-cm.yaml edited" && kubectl apply -f aws-auth-cm.yaml 
 } || { # catch
      echo "$(date): Error Applying the AWS authenticator configuration map...";
      echo "Try manually, it is required to join Worker Nodes to the EKS cluster."
