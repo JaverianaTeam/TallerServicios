@@ -95,7 +95,7 @@ La siguiente tabla lista los parámetros configurables del eks-cloudformation sc
 <tr>
 <td><code>AWS_PROFILE</code></td>
 <td>Nombre del perfil configurado en AWS credentials</td>
-<td><code>hneral</code></td>
+<td><code>""</code></td>
 </tr>
 <tr>
 <td><code>AWS_REGION</code></td>
@@ -130,42 +130,42 @@ La siguiente tabla lista los parámetros configurables del eks-cloudformation sc
 <tr>
 <td><code>ARN_ROLE</code></td>
 <td>Rol requerido para la configuración del clúster EKS</td>
-<td><code>arn:aws:iam::455314860156:role/eksClusterRole</code></td>
+<td><code>""</code></td>
 </tr>
 <tr>
 <td><code>WN_STACK_TEMPLATE</code></td>
-<td>Path keycloak is hosted at</td>
-<td><code>auth</code></td>
+<td>Template para creación de Worker Nodes</td>
+<td><code>amazon-eks-nodegroup.yaml</code></td>
 </tr>
 <tr>
 <td><code>EC2_DISK_SIZE</code></td>
-<td>Username for the initial Keycloak admin user</td>
-<td><code>keycloak</code></td>
+<td>Tamaño de disco para instancias EC2 que componen el Work Group</td>
+<td><code>20 GB</code></td>
 </tr>
 <tr>
 <td><code>EC2_INSTANCE_TYPE</code></td>
-<td>Password for the initial Keycloak admin user (if <code>keycloak.existingSecret=""</code>). If not set, a random 10 characters password is created</td>
-<td><code>""</code></td>
+<td>Tipo de Instancia EC2 del Work Group</td>
+<td><code>t2.medium</code></td>
 </tr>
 <tr>
 <td><code>EC2_IMAGE_ID</code></td>
-<td>Specifies an existing secret to be used for the admin password</td>
-<td><code>""</code></td>
+<td>AMIID - ID de imágen Sistema operativo para Worker Nodes </td>
+<td><code>ami-0f15d55736fd476da (Amazon Linix 2)</code></td>
 </tr>
 <tr>
 <td><code>SCALING_MIN_SIZE</code></td>
-<td>The key in <code>keycloak.existingSecret</code> that stores the admin password</td>
-<td><code>password</code></td>
+<td>Número mínimo de instancias EC2 en el Work Group</td>
+<td><code>1</code></td>
 </tr>
 <tr>
 <td><code>SCALING_MAX_SIZE</code></td>
-<td>Additional init containers, e. g. for providing themes, etc. Passed through the <code>tpl</code> function and thus to be configured a string</td>
-<td><code>""</code></td>
+<td>Número máximo de instancias EC2 en el Work Group</td>
+<td><code>4</code></td>
 </tr>
 <tr>
 <td><code>AWS_KEY_NAME</code></td>
-<td>Additional sidecar containers, e. g. for a database proxy, such as Google's cloudsql-proxy. Passed through the <code>tpl</code> function and thus to be configured a string</td>
-<td><code>""</code></td>
+<td>Número deseado de instancias EC2 en el Work Group</td>
+<td><code>2</code></td>
 </tr>
 </tbody>
 </table>
