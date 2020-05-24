@@ -12,7 +12,7 @@ Pre-requisitos:
 
 
 <b>Cloudformation Build:</b>
-<p>`./eks-cloudformation.sh` </p>
+`./eks-cloudformation.sh`
 
 
 El proceso completo toma aproximadamente 15 minutos.  Finalizada la creación, se observará  un mensaje de salida como es  muestra a continuación, éste contiene información útil del cluster que se acaba de crear.  
