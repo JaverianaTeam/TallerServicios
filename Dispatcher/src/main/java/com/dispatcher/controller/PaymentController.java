@@ -1,7 +1,12 @@
 package com.dispatcher.controller;
 
+import com.dispatcher.clients.AGenericClient;
+import com.dispatcher.clients.ClientFactory;
 import com.dispatcher.clients.GenericRestClient;
+import com.dispatcher.kafka.KafkaProducer;
 import com.dispatcher.model.ConvenioObject;
+import com.dispatcher.model.RemoteResponse;
+import com.dispatcher.model.ServiceDescription;
 import com.dispatcher.model.UsuarioObject;
 import com.dispatcher.proxies.ConvenioProxy;
 import com.dispatcher.proxies.UsuarioProxy;
@@ -27,13 +32,15 @@ public class PaymentController {
   private final GenericRestClient grc;
   private final ConvenioProxy cp;
   private final UsuarioProxy up;
+  private final KafkaProducer kp;
 
 
   @Autowired
-  public PaymentController(GenericRestClient grc, ConvenioProxy cp, UsuarioProxy up) {
+  public PaymentController(GenericRestClient grc, ConvenioProxy cp, UsuarioProxy up, KafkaProducer kp) {
     this.grc = grc;
     this.cp = cp;
     this.up = up;
+    this.kp = kp;
   }
 
   @GetMapping(path = "test/{id}")
@@ -44,6 +51,21 @@ public class PaymentController {
   @GetMapping(path = "testu/{id}")
   public UsuarioObject getUsuario(@PathVariable("id") Integer id) {
     return up.getUsuario(id);
+  }
+
+  @GetMapping(path = "consultar/{idConvenio}/{referencia}")
+  public RemoteResponse getUsuario(@PathVariable("idConvenio") Integer idConvenio, @PathVariable("referencia") Integer referencia) {
+    RemoteResponse rta = new RemoteResponse();
+    // Se obtiene la información del convenio
+    ConvenioObject co = cp.getInfoConvenio(idConvenio);
+    // Se obtiene la configuración para el servicio de consulta.
+    ServiceDescription sd = co.getConfiguracion().stream().filter(x -> x.getOperation().equals("CONSULTAR")).findFirst().orElse(null);
+    if (sd != null) {
+      AGenericClient client = ClientFactory.getClient(sd.getServiceType());
+      rta = client.callService(sd);
+    }
+    kp.sendMessage("Hola mundo cruel");
+    return rta;
   }
 
   @GetMapping(produces = MediaType.TEXT_PLAIN_VALUE)
