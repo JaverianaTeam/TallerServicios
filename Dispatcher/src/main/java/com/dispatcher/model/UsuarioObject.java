@@ -7,7 +7,8 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class HeaderService {
-  private String headerName;
-  private String headerValue;
+public class UsuarioObject {
+  private Integer idUsuario;
+  private String nombre;
+  private String email;
 }

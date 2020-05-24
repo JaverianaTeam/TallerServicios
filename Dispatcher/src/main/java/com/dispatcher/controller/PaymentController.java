@@ -1,6 +1,10 @@
 package com.dispatcher.controller;
 
 import com.dispatcher.clients.GenericRestClient;
+import com.dispatcher.model.ConvenioObject;
+import com.dispatcher.model.UsuarioObject;
+import com.dispatcher.proxies.ConvenioProxy;
+import com.dispatcher.proxies.UsuarioProxy;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -9,6 +13,7 @@ import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -16,14 +21,29 @@ import java.util.Arrays;
 import java.util.regex.Pattern;
 
 @RestController
-@RequestMapping("/api/payment")
+@RequestMapping("/api/payment/")
 public class PaymentController {
 
-  GenericRestClient grc;
+  private final GenericRestClient grc;
+  private final ConvenioProxy cp;
+  private final UsuarioProxy up;
+
 
   @Autowired
-  public PaymentController(GenericRestClient grc) {
+  public PaymentController(GenericRestClient grc, ConvenioProxy cp, UsuarioProxy up) {
     this.grc = grc;
+    this.cp = cp;
+    this.up = up;
+  }
+
+  @GetMapping(path = "test/{id}")
+  public ConvenioObject getConvenio(@PathVariable("id") Integer id) {
+    return cp.getInfoConvenio(id);
+  }
+
+  @GetMapping(path = "testu/{id}")
+  public UsuarioObject getUsuario(@PathVariable("id") Integer id) {
+    return up.getUsuario(id);
   }
 
   @GetMapping(produces = MediaType.TEXT_PLAIN_VALUE)
