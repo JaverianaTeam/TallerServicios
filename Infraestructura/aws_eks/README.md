@@ -88,349 +88,84 @@ La siguiente tabla lista los parámetros configurables del eks-cloudformation sc
 </thead>
 <tbody>
 <tr>
-<td><code>init.image.repository</code></td>
-<td>Init image repository</td>
-<td><code>alpine</code></td>
+<td><code>STACK_NAME</code></td>
+<td>Nombre para los stacks creados cloudformation</td>
+<td><code>ModVal-Stack</code></td>
 </tr>
 <tr>
-<td><code>init.image.tag</code></td>
-<td>Init image tag</td>
-<td><code>3.8</code></td>
+<td><code>AWS_PROFILE</code></td>
+<td>Nombre del perfil configurado en AWS credentials</td>
+<td><code>hneral</code></td>
 </tr>
 <tr>
-<td><code>init.image.pullPolicy</code></td>
-<td>Init image pull policy</td>
-<td><code>IfNotPresent</code></td>
+<td><code>AWS_REGION</code></td>
+<td>Región donde se creará el cluster EKS y sus componentes</td>
+<td><code>us-east-1</code></td>
 </tr>
 <tr>
-<td><code>clusterDomain</code></td>
-<td>The internal Kubernetes cluster domain</td>
-<td><code>cluster.local</code></td>
+<td><code>VPC_STACK_TEMPLATE</code></td>
+<td>Template para creación de la VPC con subnets públicas</td>
+<td><code>amazon-eks-vpc-sample.yaml</code></td>
 </tr>
 <tr>
-<td><code>keycloak.replicas</code></td>
-<td>The number of Keycloak replicas</td>
-<td><code>1</code></td>
+<td><code>VPC_SUBNET</code></td>
+<td>Rango CIDR para la nueva VPC.</td>
+<td><code>192.169.0.0/16</code></td>
 </tr>
 <tr>
-<td><code>keycloak.image.repository</code></td>
-<td>The Keycloak image repository</td>
-<td><code>jboss/keycloak</code></td>
+<td><code>VPC_SUBNET_B1</code></td>
+<td>Rango de CIDR para la subred pública 1</td>
+<td><code>192.169.64.0/18</code></td>
 </tr>
 <tr>
-<td><code>keycloak.image.tag</code></td>
-<td>The Keycloak image tag</td>
-<td><code>5.0.0</code></td>
+<td><code>VPC_SUBNET_B2</code></td>
+<td>Rango de CIDR para la subred pública 2</td>
+<td><code>192.169.128.0/18</code></td>
 </tr>
 <tr>
-<td><code>keycloak.image.pullPolicy</code></td>
-<td>The Keycloak image pull policy</td>
-<td><code>IfNotPresent</code></td>
+<td><code>VPC_SUBNET_B3</code></td>
+<td>Rango de CIDR para la subred pública 3</td>
+<td><code>192.169.192.0/18</code></td>
 </tr>
 <tr>
-<td><code>keycloak.image.pullSecrets</code></td>
-<td>Image pull secrets</td>
-<td><code>[]</code></td>
+<td><code>ARN_ROLE</code></td>
+<td>Rol requerido para la configuración del clúster EKS</td>
+<td><code>arn:aws:iam::455314860156:role/eksClusterRole</code></td>
 </tr>
 <tr>
-<td><code>keycloak.basepath</code></td>
+<td><code>WN_STACK_TEMPLATE</code></td>
 <td>Path keycloak is hosted at</td>
 <td><code>auth</code></td>
 </tr>
 <tr>
-<td><code>keycloak.username</code></td>
+<td><code>EC2_DISK_SIZE</code></td>
 <td>Username for the initial Keycloak admin user</td>
 <td><code>keycloak</code></td>
 </tr>
 <tr>
-<td><code>keycloak.password</code></td>
+<td><code>EC2_INSTANCE_TYPE</code></td>
 <td>Password for the initial Keycloak admin user (if <code>keycloak.existingSecret=""</code>). If not set, a random 10 characters password is created</td>
 <td><code>""</code></td>
 </tr>
 <tr>
-<td><code>keycloak.existingSecret</code></td>
+<td><code>EC2_IMAGE_ID</code></td>
 <td>Specifies an existing secret to be used for the admin password</td>
 <td><code>""</code></td>
 </tr>
 <tr>
-<td><code>keycloak.existingSecretKey</code></td>
+<td><code>SCALING_MIN_SIZE</code></td>
 <td>The key in <code>keycloak.existingSecret</code> that stores the admin password</td>
 <td><code>password</code></td>
 </tr>
 <tr>
-<td><code>keycloak.extraInitContainers</code></td>
+<td><code>SCALING_MAX_SIZE</code></td>
 <td>Additional init containers, e. g. for providing themes, etc. Passed through the <code>tpl</code> function and thus to be configured a string</td>
 <td><code>""</code></td>
 </tr>
 <tr>
-<td><code>keycloak.extraContainers</code></td>
+<td><code>AWS_KEY_NAME</code></td>
 <td>Additional sidecar containers, e. g. for a database proxy, such as Google's cloudsql-proxy. Passed through the <code>tpl</code> function and thus to be configured a string</td>
 <td><code>""</code></td>
-</tr>
-<tr>
-<td><code>keycloak.extraEnv</code></td>
-<td>Allows the specification of additional environment variables for Keycloak. Passed through the <code>tpl</code> function and thus to be configured a string</td>
-<td><code>""</code></td>
-</tr>
-<tr>
-<td><code>keycloak.extraVolumeMounts</code></td>
-<td>Add additional volumes mounts, e. g. for custom themes. Passed through the <code>tpl</code> function and thus to be configured a string</td>
-<td><code>""</code></td>
-</tr>
-<tr>
-<td><code>keycloak.extraVolumes</code></td>
-<td>Add additional volumes, e. g. for custom themes. Passed through the <code>tpl</code> function and thus to be configured a string</td>
-<td><code>""</code></td>
-</tr>
-<tr>
-<td><code>keycloak.extraPorts</code></td>
-<td>Add additional ports, e. g. for custom admin console port. Passed through the <code>tpl</code> function and thus to be configured a string</td>
-<td><code>""</code></td>
-</tr>
-<tr>
-<td><code>keycloak.podDisruptionBudget</code></td>
-<td>Pod disruption budget</td>
-<td><code>{}</code></td>
-</tr>
-<tr>
-<td><code>keycloak.priorityClassName</code></td>
-<td>Pod priority classname</td>
-<td><code>{}</code></td>
-</tr>
-<tr>
-<td><code>keycloak.resources</code></td>
-<td>Pod resource requests and limits</td>
-<td><code>{}</code></td>
-</tr>
-<tr>
-<td><code>keycloak.affinity</code></td>
-<td>Pod affinity. Passed through the <code>tpl</code> function and thus to be configured a string</td>
-<td><code>Hard node and soft zone anti-affinity</code></td>
-</tr>
-<tr>
-<td><code>keycloak.nodeSelector</code></td>
-<td>Node labels for pod assignment</td>
-<td><code>{}</code></td>
-</tr>
-<tr>
-<td><code>keycloak.tolerations</code></td>
-<td>Node taints to tolerate</td>
-<td><code>[]</code></td>
-</tr>
-<tr>
-<td><code>keycloak.podLabels</code></td>
-<td>Extra labels to add to pod</td>
-<td><code>{}</code></td>
-</tr>
-<tr>
-<td><code>keycloak.podAnnotations</code></td>
-<td>Extra annotations to add to pod</td>
-<td><code>{}</code></td>
-</tr>
-<tr>
-<td><code>keycloak.hostAliases</code></td>
-<td>Mapping between IP and hostnames that will be injected as entries in the pod's hosts files</td>
-<td><code>[]</code></td>
-</tr>
-<tr>
-<td><code>keycloak.securityContext</code></td>
-<td>Security context for the pod</td>
-<td><code>{runAsUser: 1000, fsGroup: 1000, runAsNonRoot: true}</code></td>
-</tr>
-<tr>
-<td><code>keycloak.preStartScript</code></td>
-<td>Custom script to run before Keycloak starts up</td>
-<td>``</td>
-</tr>
-<tr>
-<td><code>keycloak.lifecycleHooks</code></td>
-<td>Container lifecycle hooks. Passed through the <code>tpl</code> function and thus to be configured a string</td>
-<td>``</td>
-</tr>
-<tr>
-<td><code>keycloak.extraArgs</code></td>
-<td>Additional arguments to the start command</td>
-<td>``</td>
-</tr>
-<tr>
-<td><code>keycloak.livenessProbe.initialDelaySeconds</code></td>
-<td>Liveness Probe <code>initialDelaySeconds</code></td>
-<td><code>120</code></td>
-</tr>
-<tr>
-<td><code>keycloak.livenessProbe.timeoutSeconds</code></td>
-<td>Liveness Probe <code>timeoutSeconds</code></td>
-<td><code>5</code></td>
-</tr>
-<tr>
-<td><code>keycloak.readinessProbe.initialDelaySeconds</code></td>
-<td>Readiness Probe <code>initialDelaySeconds</code></td>
-<td><code>30</code></td>
-</tr>
-<tr>
-<td><code>keycloak.readinessProbe.timeoutSeconds</code></td>
-<td>Readiness Probe <code>timeoutSeconds</code></td>
-<td><code>1</code></td>
-</tr>
-<tr>
-<td><code>keycloak.cli.nodeIdentifier</code></td>
-<td>WildFly CLI script for setting the node identifier</td>
-<td>See <code>values.yaml</code></td>
-</tr>
-<tr>
-<td><code>keycloak.cli.logging</code></td>
-<td>WildFly CLI script for logging configuration</td>
-<td>See <code>values.yaml</code></td>
-</tr>
-<tr>
-<td><code>keycloak.cli.reverseProxy</code></td>
-<td>WildFly CLI script for reverse proxy configuration</td>
-<td>See <code>values.yaml</code></td>
-</tr>
-<tr>
-<td><code>keycloak.cli.ha</code></td>
-<td>Settings for HA setups</td>
-<td>See <code>values.yaml</code></td>
-</tr>
-<tr>
-<td><code>keycloak.cli.custom</code></td>
-<td>Additional custom WildFly CLI script</td>
-<td><code>""</code></td>
-</tr>
-<tr>
-<td><code>keycloak.service.annotations</code></td>
-<td>Annotations for the Keycloak service</td>
-<td><code>{}</code></td>
-</tr>
-<tr>
-<td><code>keycloak.service.labels</code></td>
-<td>Additional labels for the Keycloak service</td>
-<td><code>{}</code></td>
-</tr>
-<tr>
-<td><code>keycloak.service.type</code></td>
-<td>The service type</td>
-<td><code>ClusterIP</code></td>
-</tr>
-<tr>
-<td><code>keycloak.service.port</code></td>
-<td>The service port</td>
-<td><code>80</code></td>
-</tr>
-<tr>
-<td><code>keycloak.service.nodePort</code></td>
-<td>The node port used if the service is of type <code>NodePort</code></td>
-<td><code>""</code></td>
-</tr>
-<tr>
-<td><code>keycloak.ingress.enabled</code></td>
-<td>if <code>true</code>, an ingress is created</td>
-<td><code>false</code></td>
-</tr>
-<tr>
-<td><code>keycloak.ingress.annotations</code></td>
-<td>annotations for the ingress</td>
-<td><code>{}</code></td>
-</tr>
-<tr>
-<td><code>keycloak.ingress.path</code></td>
-<td>if <code>true</code>, an ingress is created</td>
-<td><code>/</code></td>
-</tr>
-<tr>
-<td><code>keycloak.ingress.hosts</code></td>
-<td>a list of ingress hosts</td>
-<td><code>[keycloak.example.com]</code></td>
-</tr>
-<tr>
-<td><code>keycloak.ingress.tls</code></td>
-<td>a list of <a href="https://v1-9.docs.kubernetes.io/docs/reference/generated/kubernetes-api/v1.9/#ingresstls-v1beta1-extensions" rel="nofollow">IngressTLS</a> items</td>
-<td><code>[]</code></td>
-</tr>
-<tr>
-<td><code>keycloak.persistence.deployPostgres</code></td>
-<td>If true, the PostgreSQL chart is installed</td>
-<td><code>false</code></td>
-</tr>
-<tr>
-<td><code>keycloak.persistence.existingSecret</code></td>
-<td>Name of an existing secret to be used for the database password (if <code>keycloak.persistence.deployPostgres=false</code>). Otherwise a new secret is created</td>
-<td><code>""</code></td>
-</tr>
-<tr>
-<td><code>keycloak.persistence.existingSecretKey</code></td>
-<td>The key for the database password in the existing secret (if <code>keycloak.persistence.deployPostgres=false</code>)</td>
-<td><code>password</code></td>
-</tr>
-<tr>
-<td><code>keycloak.persistence.dbVendor</code></td>
-<td>One of <code>h2</code>, <code>postgres</code>, <code>mysql</code>, or <code>mariadb</code> (if <code>deployPostgres=false</code>)</td>
-<td><code>h2</code></td>
-</tr>
-<tr>
-<td><code>keycloak.persistence.dbName</code></td>
-<td>The name of the database to connect to (if <code>deployPostgres=false</code>)</td>
-<td><code>keycloak</code></td>
-</tr>
-<tr>
-<td><code>keycloak.persistence.dbHost</code></td>
-<td>The database host name (if <code>deployPostgres=false</code>)</td>
-<td><code>mykeycloak</code></td>
-</tr>
-<tr>
-<td><code>keycloak.persistence.dbPort</code></td>
-<td>The database host port (if <code>deployPostgres=false</code>)</td>
-<td><code>5432</code></td>
-</tr>
-<tr>
-<td><code>keycloak.persistence.dbUser</code></td>
-<td>The database user (if <code>deployPostgres=false</code>)</td>
-<td><code>keycloak</code></td>
-</tr>
-<tr>
-<td><code>keycloak.persistence.dbPassword</code></td>
-<td>The database password (if <code>deployPostgres=false</code>)</td>
-<td><code>""</code></td>
-</tr>
-<tr>
-<td><code>postgresql.postgresUser</code></td>
-<td>The PostgreSQL user (if <code>keycloak.persistence.deployPostgres=true</code>)</td>
-<td><code>keycloak</code></td>
-</tr>
-<tr>
-<td><code>postgresql.postgresPassword</code></td>
-<td>The PostgreSQL password (if <code>keycloak.persistence.deployPostgres=true</code>)</td>
-<td><code>""</code></td>
-</tr>
-<tr>
-<td><code>postgresql.postgresDatabase</code></td>
-<td>The PostgreSQL database (if <code>keycloak.persistence.deployPostgres=true</code>)</td>
-<td><code>keycloak</code></td>
-</tr>
-<tr>
-<td><code>test.enabled</code></td>
-<td>If <code>true</code>, test pods get scheduled</td>
-<td><code>true</code></td>
-</tr>
-<tr>
-<td><code>test.image.repository</code></td>
-<td>Test image repository</td>
-<td><code>unguiculus/docker-python3-phantomjs-selenium</code></td>
-</tr>
-<tr>
-<td><code>test.image.tag</code></td>
-<td>Test image tag</td>
-<td><code>v1</code></td>
-</tr>
-<tr>
-<td><code>test.image.pullPolicy</code></td>
-<td>Test image pull policy</td>
-<td><code>IfNotPresent</code></td>
-</tr>
-<tr>
-<td><code>test.securityContext</code></td>
-<td>Security context for the test pod</td>
-<td><code>{runAsUser: 1000, fsGroup: 1000, runAsNonRoot: true}</code></td>
 </tr>
 </tbody>
 </table>
