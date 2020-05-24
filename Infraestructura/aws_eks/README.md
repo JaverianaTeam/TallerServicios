@@ -17,7 +17,7 @@ Pre-requisitos:
 
 El proceso completo toma aproximadamente 15 minutos.  Finalizada la creación, se observará  un mensaje de salida como es  muestra a continuación, éste contiene información útil del cluster que se acaba de crear.  
 
-<p>
+
 ```
 ==================================
 Sat May 23 21:41:01 -05 2020
@@ -29,7 +29,6 @@ Security Group: sg-06ef3d2b409c8146a
 Node Instance Role: arn:aws:iam::455314860156:role/worker-nodes-ModVal-Stack2-NodeInstanceRole-QTSDDA41024T
 ==================================
 ``` 
-</p>
 
 Primero crea una nueva VPC, luego crea el cluster EKS y finalmente el grupo de Worker Nodes. El grupo de worker nodes está compuesto por 2 instancias EC2 activas t2.medium , con la posibilidad de crecer hasta 4 dependiendo de la carga. 
 
