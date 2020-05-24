@@ -8,7 +8,7 @@ info:
     url: "http://www.apache.org/licences/LICENSE-2.0.html"
   contact:
       name: "Byron Martínez, Edgar Javier Rivera, Rafael Ocampo"
-      email: "bmartinezm@javeriana.edu.co, ejrivera@javeriana.edu.co, jrafael.ocampo@javeriana.edu.co"
+      email: "ejrivera@javeriana.edu.co"
 servers: 
   - url: http://localhost:8080/notificaciones
     description: Servicio de notificaciones del aplicativo de gestión de pagos

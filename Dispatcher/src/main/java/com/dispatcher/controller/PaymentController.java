@@ -54,7 +54,7 @@ public class PaymentController {
   }
 
   @GetMapping(path = "consultar/{idConvenio}/{referencia}")
-  public RemoteResponse getUsuario(@PathVariable("idConvenio") Integer idConvenio, @PathVariable("referencia") Integer referencia) {
+  public RemoteResponse consultarFactura(@PathVariable("idConvenio") Integer idConvenio, @PathVariable("referencia") Integer referencia) {
     RemoteResponse rta = new RemoteResponse();
     // Se obtiene la información del convenio
     ConvenioObject co = cp.getInfoConvenio(idConvenio);
@@ -67,6 +67,8 @@ public class PaymentController {
     kp.sendMessage("Hola mundo cruel");
     return rta;
   }
+
+
 
   @GetMapping(produces = MediaType.TEXT_PLAIN_VALUE)
   public String test() {
