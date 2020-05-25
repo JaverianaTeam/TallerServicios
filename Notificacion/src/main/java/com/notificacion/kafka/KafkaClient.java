@@ -24,11 +24,11 @@ public class KafkaClient {
   public void sendMail(NotificationObject data) {
     System.out.println("Preparado para enviar correo");
     Properties props = new Properties();
-    props.put("mail.smtp.host", "smtp.live.com");
-    props.put("mail.smtp.socketFactory.port", "25");
+    props.put("mail.smtp.host", "smtp.office365.com");
+    props.put("mail.smtp.socketFactory.port", "587");
     props.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
     props.put("mail.smtp.auth","true");
-    props.put("mail.smtp.port","25");
+    props.put("mail.smtp.port","587");
     props.put("mail.smtp.starttls.enable","true");
     System.out.println("Puse las propiedades");
     Session session = Session.getDefaultInstance(
@@ -36,7 +36,7 @@ public class KafkaClient {
             new Authenticator() {
               @Override
               protected PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication("jrafael.ocampo@javeriana.edu.co", "MiPassword");
+                return new PasswordAuthentication("jrafael.ocampo@javeriana.edu.co", "Password1");
               }
             }
     );
