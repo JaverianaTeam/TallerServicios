@@ -1,0 +1,13 @@
+container:
+  name: notificacion
+  image: rocampoa/notificacion:latest
+  port: 8188
+label: notificacion
+deploy:
+  name: notificacion-deploy
+service:
+  name: notificacion-svc
+  portcluster: 8188
+ingress:
+  name: notificacion-igrs
+  path: /notificacion

@@ -1,0 +1,13 @@
+container:
+  name: pagos
+  image: rocampoa/pagos:latest
+  port: 8187
+label: pagos
+deploy:
+  name: pagos-deploy
+service:
+  name: pagos-svc
+  portcluster: 8187
+ingress:
+  name: pagos-igrs
+  path: /api/pay

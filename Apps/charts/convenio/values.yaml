@@ -1,0 +1,13 @@
+container:
+  name: convenio
+  image: rocampoa/convenio:latest
+  port: 8185
+label: convenio
+deploy:
+  name: convenio-deploy
+service:
+  name: convenio-svc
+  portcluster: 8185
+ingress:
+  name: convenio-igrs
+  path: /convenios

@@ -1,0 +1,13 @@
+container:
+  name: usuario
+  image: rocampoa/usuario:latest
+  port: 8186
+label: usuario
+deploy:
+  name: usuario-deploy
+service:
+  name: usuario-svc
+  portcluster: 8186
+ingress:
+  name: usuario-igrs
+  path: /usuarios
