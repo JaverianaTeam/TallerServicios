@@ -27,7 +27,7 @@ public class PaymentController {
     return ps.pagarFactura(data);
   }
 
-  @PostMapping
+  @PutMapping
   public PaymentResponse compensarFactura(@RequestBody PagoRequest data) {
     return ps.compensarFactura(data);
   }

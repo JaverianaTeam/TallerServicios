@@ -1,14 +1,12 @@
 package com.dispatcher.services;
 
+import com.dispatcher.utils.JsonConverter;
 import com.dispatcher.clients.AGenericClient;
 import com.dispatcher.clients.ClientFactory;
 import com.dispatcher.exception.PaymentBadRequestException;
 import com.dispatcher.exception.PaymentNotFoundException;
 import com.dispatcher.kafka.KafkaProducer;
-import com.dispatcher.model.ConvenioObject;
-import com.dispatcher.model.PagoRequest;
-import com.dispatcher.model.PaymentResponse;
-import com.dispatcher.model.ServiceDescription;
+import com.dispatcher.model.*;
 import com.dispatcher.proxies.ConvenioProxy;
 import com.dispatcher.proxies.UsuarioProxy;
 import org.springframework.stereotype.Service;
@@ -38,11 +36,17 @@ public class PaymentService {
   }
 
   private String fillPayload(String payload, Integer reference) {
-    return payload.replace("$1", reference.toString());
+    if (payload != null && reference != null) {
+      return payload.replace("$1", reference.toString());
+    }
+    return payload;
   }
 
   private String fillPayload(String payload, Integer reference, Integer valor) {
-    return fillPayload(payload, reference).replace("$2", valor.toString());
+    if (payload != null) {
+      return fillPayload(payload, reference).replace("$2", valor == null ? "" : valor.toString());
+    }
+    return payload;
   }
 
   public PaymentResponse consultarFactura(Integer idConvenio, Integer referencia) {
@@ -53,6 +57,7 @@ public class PaymentService {
     ServiceDescription sd = getConfiguration(idConvenio, "CONSULTAR");
     // Se establece el valor de la referencia a consultar
     sd.setRequestPayload(fillPayload(sd.getRequestPayload(), referencia));
+    sd.setServiceUrl(fillPayload(sd.getServiceUrl(), referencia));
     AGenericClient client = ClientFactory.getClient(sd.getServiceType());
     return client.callService(sd);
   }
@@ -65,8 +70,22 @@ public class PaymentService {
     ServiceDescription sd = getConfiguration(data.getIdConvenio(), "PAGAR");
     // Se establece el valor de la referencia a consultar
     sd.setRequestPayload(fillPayload(sd.getRequestPayload(), data.getReferencia(), data.getValor()));
+    sd.setServiceUrl(fillPayload(sd.getServiceUrl(), data.getReferencia(), data.getValor()));
     AGenericClient client = ClientFactory.getClient(sd.getServiceType());
-    return client.callService(sd);
+    UsuarioObject userData = up.getUsuario(data.getIdUsuario());
+    NotificationObject info = new NotificationObject();
+    info.setServicio("PAGAR");
+    info.setEmail(userData.getEmail());
+    info.setIdUsuario(userData.getIdUsuario());
+    info.setNombreUsuario(userData.getNombre());
+    info.setIdConvenio(data.getIdConvenio());
+    info.setReferencia(data.getReferencia());
+    info.setValor(data.getValor());
+    info.setNroTransaccion(1);
+    rta = client.callService(sd);
+    info.setMensaje(rta.getMensaje());
+    kp.sendMessage(JsonConverter.toJSON(info));
+    return rta;
   }
 
   public PaymentResponse compensarFactura(PagoRequest data) {
@@ -76,8 +95,22 @@ public class PaymentService {
     PaymentResponse rta;
     ServiceDescription sd = getConfiguration(data.getIdConvenio(), "COMPENSAR");
     sd.setRequestPayload(fillPayload(sd.getRequestPayload(), data.getReferencia(), data.getValor()));
+    sd.setServiceUrl(fillPayload(sd.getServiceUrl(), data.getReferencia(), data.getValor()));
     AGenericClient client = ClientFactory.getClient(sd.getServiceType());
-    return client.callService(sd);
+    UsuarioObject userData = up.getUsuario(data.getIdUsuario());
+    NotificationObject info = new NotificationObject();
+    info.setServicio("COMPENSAR");
+    info.setEmail(userData.getEmail());
+    info.setIdUsuario(userData.getIdUsuario());
+    info.setNombreUsuario(userData.getNombre());
+    info.setIdConvenio(data.getIdConvenio());
+    info.setReferencia(data.getReferencia());
+    info.setValor(data.getValor());
+    info.setNroTransaccion(1);
+    rta = client.callService(sd);
+    info.setMensaje(rta.getMensaje());
+    kp.sendMessage(JsonConverter.toJSON(info));
+    return rta;
   }
 
 
