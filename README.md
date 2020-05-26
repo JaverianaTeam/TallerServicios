@@ -67,7 +67,7 @@ en a continuación:
 
 <p>Para facilitar la instalación y el deployment de todos los servicios, incluyendo Kafka y Zookeeper, creamos el siguiente script. Es decir, después del despliegue de la infraestructura se debería correr este script. Este script se apoya de helm y kubectl, por lo que es importante tener estas dos herramientas instaladas y configuradas correctamente.</p>
 
-[Charts Helm](Apps/startup-apps.sh)
+[Startup Apps Script](Apps/startup-apps.sh)
 
 <h2>License</h2>
 
