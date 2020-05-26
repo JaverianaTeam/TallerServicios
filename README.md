@@ -33,10 +33,16 @@ Todos nuestro servicios tienen su propia base de persisitencia de datos.
 
 [Definición de la Infraestrcutura](Infraestructura/aws_eks/README.md)
 
+
+
+<h2>Deployment</h2>
+
+<p>Los microservicios fueron desarrollados en Spring Boot empaquetados y desplegados sobre Kubernetes utilizando charts de Helm.</p> 
+
+[Definición de la Infraestrcutura](TallerServicios/Apps/)
+
+
 <h2>License</h2>
-
-
-
 
 All the code in this repo is under ![picture](https://img.shields.io/badge/license-MIT-brightgreen)
 
