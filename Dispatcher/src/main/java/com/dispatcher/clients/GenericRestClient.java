@@ -23,6 +23,8 @@ public class GenericRestClient extends AGenericClient {
         return HttpMethod.POST;
       case "PUT":
         return HttpMethod.PUT;
+      case "DELETE":
+        return HttpMethod.DELETE;
       default:
         return HttpMethod.GET;
     }

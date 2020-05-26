@@ -1,6 +1,5 @@
 package com.convenio.controller;
 
-import com.convenio.exception.ConvenioNotFoundException;
 import com.convenio.model.ConvenioObject;
 import com.convenio.model.ConvenioResponse;
 import com.convenio.services.ConvenioService;

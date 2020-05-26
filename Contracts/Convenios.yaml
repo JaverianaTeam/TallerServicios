@@ -1,7 +1,7 @@
 openapi: 3.0.0
 info:
   version: '1.0'
-  title: 'Servicio de conculta de Convenios de Recaudo'
+  title: 'Servicio de consulta de Convenios de Recaudo'
   description: 'Permite realizar la consulta de los convenios de recuado por id del convenio o por nombre.'
   license:
     name: "Apache 2.0"

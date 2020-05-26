@@ -3,6 +3,7 @@
   <component name="Encoding">
     <file url="file://$PROJECT_DIR$/Convenio/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/Dispatcher/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Notificacion/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/Usuario/src/main/java" charset="UTF-8" />
   </component>
 </project>

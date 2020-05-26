@@ -8,6 +8,7 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="Convenio" />
+        <module name="Notificacion" />
         <module name="Usuario" />
         <module name="Dispatcher" />
       </profile>
@@ -15,6 +16,7 @@
     <bytecodeTargetLevel>
       <module name="Convenio" target="1.8" />
       <module name="Dispatcher" target="1.8" />
+      <module name="Notificacion" target="11" />
       <module name="Usuario" target="1.8" />
     </bytecodeTargetLevel>
   </component>
@@ -22,6 +24,7 @@
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="Convenio" options="-parameters" />
       <module name="Dispatcher" options="-parameters" />
+      <module name="Notificacion" options="-parameters" />
       <module name="Usuario" options="-parameters" />
     </option>
   </component>
