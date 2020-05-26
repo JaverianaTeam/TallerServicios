@@ -1,0 +1,82 @@
+<!-- HTML for static distribution bundle build -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>Swagger UI</title>
+    <link rel="stylesheet" type="text/css" href="./swagger-ui.css" >
+    <link rel="icon" type="image/png" href="./favicon-32x32.png" sizes="32x32" />
+    <link rel="icon" type="image/png" href="./favicon-16x16.png" sizes="16x16" />
+    <style>
+      html
+      {
+        box-sizing: border-box;
+        overflow: -moz-scrollbars-vertical;
+        overflow-y: scroll;
+      }
+
+      *,
+      *:before,
+      *:after
+      {
+        box-sizing: inherit;
+      }
+
+      body
+      {
+        margin:0;
+        background: #fafafa;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="swagger-ui"></div>
+
+    <script src="./swagger-ui-bundle.js"> </script>
+    <script src="./swagger-ui-standalone-preset.js"> </script>
+    <script>
+    window.onload = function() {
+
+      // Build a system
+      var ui = SwaggerUIBundle({
+        spec: /*intellij-swagger-spec-start*/{"openapi":"3.0.3","info":{"title":"Servicio de pagos","description":"Este es el servicio que expone las capacidades al cliente, para consulta, pago y compensación de facturas en cualquiera de los conenios inscritos.","version":"1.0.0","license":{"name":"Apache 2.0","url":"http://www.apache.org/licences/LICENSE-2.0.html"},"contact":{"name":"Byron Martínez, Edgar Javier Rivera, Rafael Ocampo","email":"jrafael.ocampo@javeriana.edu.co"}},"servers":[{"url":"https://localhost:8080/Pagar"}],"paths":{"/api/pay":{"get":{"description":"Permite consultar el valor a pagar de una factura para un convenio de recaudo dado.","parameters":[{"in":"query","description":"Identificador del convenio de racaudo","name":"idConvenio","required":true,"schema":{"type":"integer"}},{"in":"query","description":"Número de referencia de recaudo o factura","name":"referencia","required":true,"schema":{"type":"integer"}}],"responses":{"200":{"description":"Consulta realizada exitosamente","content":{"application/json":{"schema":{"$ref":"#/components/schemas/PaymentResponse"}}}},"404":{"description":"La factura o convenio que se intenta consultar no existe.","content":{"application/json":{"schema":{"$ref":"#/components/schemas/ErrorResponse"}}}}}},"post":{"summary":"Servicio que permite la realización de un pago.","description":"Recibe la información de usuario, convenio, referencia y valor a pagar, y direcciona el pago al convenio correspondiente.","requestBody":{"description":"Datos para el pago.","required":true,"content":{"application/json":{"schema":{"$ref":"#/components/schemas/PagoRequest"}}}},"responses":{"200":{"description":"Operación exitosa, ver mensaje con el resultado","content":{"application/json":{"schema":{"$ref":"#/components/schemas/PaymentResponse"}}}},"400":{"description":"Bad request, hay algún error en los parámetros especificados","content":{"application/json":{"schema":{"$ref":"#/components/schemas/ErrorResponse"}}}},"404":{"description":"Número de factura no encontrado","content":{"application/json":{"schema":{"$ref":"#/components/schemas/ErrorResponse"}}}}}},"put":{"summary":"Servicio que permite la realización la compensación de un pago.","description":"Recibe la información de usuario, convenio, referencia y valor a pagar, y direcciona el pago al convenio correspondiente.","requestBody":{"description":"Datos para la compensación","required":true,"content":{"application/json":{"schema":{"$ref":"#/components/schemas/PagoRequest"}}}},"responses":{"200":{"description":"Operación exitosa, ver mensaje con el resultado","content":{"application/json":{"schema":{"$ref":"#/components/schemas/PaymentResponse"}}}},"400":{"description":"Bad request, hay algún error en los parámetros especificados","content":{"application/json":{"schema":{"$ref":"#/components/schemas/ErrorResponse"}}}},"404":{"description":"Número de factura no encontrado","content":{"application/json":{"schema":{"$ref":"#/components/schemas/ErrorResponse"}}}}}}}},"components":{"schemas":{"ErrorResponse":{"type":"object","properties":{"code":{"type":"string"},"message":{"type":"string"}},"required":["code","message"]},"PagoRequest":{"type":"object","properties":{"idUsuario":{"type":"integer","description":"Identificador del usuario que realiza el pago."},"idConvenio":{"type":"integer","description":"Código del convenio al cual se va a realizar el pago"},"referencia":{"type":"integer","description":"Número de referencia de recaudo o número de factura"},"valor":{"type":"integer","description":"Valor a pagar o compensar."}}},"PaymentResponse":{"type":"object","properties":{"referencia":{"description":"Número de referencia de recaudo o factura a que hace referencia la respuesta","type":"integer"},"mensaje":{"description":"Mensaje que indica el resultad de la operación","type":"string"},"valor":{"description":"Valor a pagar si aplica para el tipo de operación realizada","type":"string"},"nroTransaccion":{"description":"Número de transacción asignado por el sistema para identificar la operación, aplica sólo para transacciones de pago.","type":"string"}}}}}}/*intellij-swagger-spec-end*/,
+        validatorUrl: null,
+        dom_id: '#swagger-ui',
+        deepLinking: false,
+        presets: [
+          SwaggerUIBundle.presets.apis,
+          SwaggerUIStandalonePreset
+        ],
+        plugins: [
+          SwaggerUIBundle.plugins.DownloadUrl
+        ],
+        layout: "StandaloneLayout",
+        requestInterceptor: function (req) {
+          var url = new URL(req.url);
+
+          req.url = "http://localhost:52043" + url.pathname + url.search;
+          req.headers['Swagger-UI-Request-URL'] = url.protocol + "//" + url.hostname + (url.port !== "" ? ":" + url.port : "");
+
+          return req;
+        },
+        showMutatedRequest: false
+      });
+
+      var port = 52286;
+      var hash = "ae560712-1d08-4875-807b-42cbee25092d";
+      var connection = new WebSocket('ws://localhost:' + port + "/" + hash);
+
+      connection.onerror = function (error) {
+        console.log('WebSocket Error ' + error);
+      };
+
+      connection.onmessage = function (e) {
+        ui.specActions.updateSpec(e.data);
+      };
+
+      window.ui = ui
+    }
+  </script>
+  </body>
+</html>

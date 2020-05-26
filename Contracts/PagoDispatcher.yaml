@@ -1,4 +1,4 @@
-openapi: 3.0.1
+openapi: 3.0.3
 info:
   title: Servicio de pagos
   description: Este es el servicio que expone las capacidades al cliente, para consulta, pago y compensación de facturas en cualquiera de los conenios inscritos.

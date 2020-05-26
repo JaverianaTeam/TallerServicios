@@ -37,12 +37,12 @@ asíncrona, para que el servicio de notificaciones envíe el correo <b> Coreogra
 <p>La arquitectura implementa varios patrones de colaboración entre servicios, la mayoría de los microservicios implementan comunicación/composición a través de REST Síncronos, pero el módulo de notificaciones y pagos  implementan un patrón de colaboración a través de eventos coreográficos(asíncronos).</p>
 
 <h3>Principio del "Contrato Primero"</h3>
-Para cada uno de los servicios implementados, se definión, primero el contrato basados en la especificación OpenAPI 3.0.3, los contratos de los servicios se pueden encontrar
+Para cada uno de los servicios implementados, se definió primero el contrato basados en la especificación OpenAPI 3.0.3, los contratos de los servicios se pueden encontrar
 en a continuación:
 
-[Contrato Servicio Convenios](Contracts/Convenios.yaml) <br/>
-[Contrato Servicio Usuarios](Contracts/Usuario.yaml) <br/>
-[Contrato Servicio Pagos](Contracts/PagoDispatcher.yaml)
+[Contrato Servicio Convenios yaml](Contracts/Convenios.yaml)  ==>  [Vista html](Contracts/Convenios.html)<br/>
+[Contrato Servicio Usuarios yaml](Contracts/Usuario.yaml)  ==> [Vista html](Contracts/Usuarios.html) <br/>
+[Contrato Servicio Pagos yaml](Contracts/PagoDispatcher.yaml) ==> [Vista html](Contracts/Pagos.html)
 
 
 <h2>Infraestructura Tecnológica</h2>
