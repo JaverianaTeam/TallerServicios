@@ -8,6 +8,14 @@ Todos nuestro servicios tienen su propia base de persisitencia de datos.
 
 [Definición de la Infraestrcutura](Infraestructura/aws_eks/README.md)
 
+
+<h2> Arquitectura </h2>
+
+<h3>Microservicios</h3>
+<p>Para el diseño e implementación se usó el estilo de arquitectura de microservicios porque nos permite cumplir con los requerimientos de escalabilidad, disponibilidad y seguridad requeridos. Lo anterior implica que cada servicio tenga un alto grado de granularidad en el manejo , ya que cada servicio está habilitando para ser escalable horizontalmente, desplegado independientemente, fácilmente mantenible y esto contribuye a su vez a  que la implementación y entrega de software sea más rápida y oportuna de acuerdo a los cambios del negocio o del mercado. </p>
+
+
+
 All the code in this repo is under ![picture](https://img.shields.io/badge/license-MIT-brightgreen)
 
 ```
