@@ -12,7 +12,7 @@ echo "Taller - Servicios"
 echo "Universidad Javeriana - Colombia"
 
 ### General Configuration variables
-STACK_NAME="ModVal-Stack2"
+STACK_NAME="ModVal-StackT"
 AWS_PROFILE="hneral"
 AWS_REGION="us-east-1"
 
