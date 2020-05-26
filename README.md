@@ -1,6 +1,6 @@
 # Taller De Servicios de ModVal EAS
 
-![picture](DiagramaServiciosFacturas.png)
+![picture](Diagrama%20Servicios%20Facturas.jpg)
 
 En este diagrama se modela la solución del problema de pago de facturas de diferentes proveedores, los cuales se pueden adicionar a través del esquema
 de configuración registrando los servicios que ellos exponen, para la consulta, pago y compensación de facturas, indiferentemente de si los servicios
@@ -30,13 +30,19 @@ asíncrona, para que el servicio de notificaciones envíe el correo <b> Coreogra
 
 
 
-
 <h3>Microservicios</h3>
 <p>Para el diseño e implementación se usó el estilo de arquitectura de microservicios porque nos permite cumplir con los requerimientos de escalabilidad, disponibilidad y seguridad requeridos. Lo anterior implica que cada servicio tenga un alto grado de granularidad en el manejo , ya que cada servicio está habilitando para ser escalable horizontalmente, desplegado independientemente, fácilmente mantenible y esto contribuye a su vez a  que la implementación y entrega de software sea más rápida y oportuna de acuerdo a los cambios del negocio o del mercado. </p>
 
 <h3>Patrones de Colaboración/Composición entre Servicios</h3>
 <p>La arquitectura implementa varios patrones de colaboración entre servicios, la mayoría de los microservicios implementan comunicación/composición a través de REST Síncronos, pero el módulo de notificaciones y pagos  implementan un patrón de colaboración a través de eventos coreográficos(asíncronos).</p>
 
+<h3>Principio del "Contrato Primero"</h3>
+Para cada uno de los servicios implementados, se definión, primero el contrato basados en la especificación OpenAPI 3.0.3, los contratos de los servicios se pueden encontrar
+en a continuación:
+
+[Contrato Servicio Convenios](Contracts/Convenios.yaml) <br/>
+[Contrato Servicio Usuarios](Contracts/Usuario.yaml) <br/>
+[Contrato Servicio Pagos](Contracts/PagoDispatcher.yaml)
 
 
 <h2>Infraestructura Tecnológica</h2>
