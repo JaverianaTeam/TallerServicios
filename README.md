@@ -40,9 +40,9 @@ asíncrona, para que el servicio de notificaciones envíe el correo <b> Coreogra
 Para cada uno de los servicios implementados, se definió primero el contrato basados en la especificación OpenAPI 3.0.3, los contratos de los servicios se pueden encontrar
 en a continuación:
 
-[Contrato Servicio Convenios yaml](Contracts/Convenios.yaml)  ==>  [Vista html](RawGit:Contracts/Convenios.html)<br/>
-[Contrato Servicio Usuarios yaml](Contracts/Usuario.yaml)  ==> [Vista html](https://htmlpreview.github.io/?Contracts/Usuarios.html) <br/>
-[Contrato Servicio Pagos yaml](Contracts/PagoDispatcher.yaml) ==> [Vista html](https://htmlpreview.github.io/?Contracts/Pagos.html)
+[Contrato Servicio Convenios yaml](Contracts/Convenios.yaml) <br/>
+[Contrato Servicio Usuarios yaml](Contracts/Usuario.yaml)  <br/>
+[Contrato Servicio Pagos yaml](Contracts/PagoDispatcher.yaml) 
 
 
 <h2>Infraestructura Tecnológica</h2>
