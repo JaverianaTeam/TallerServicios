@@ -1,15 +1,32 @@
 # Taller De Servicios de ModVal EAS
 
-![picture](DiagramaServiciosFacturas.png)
+![picture](Diagrama%20Servicios%20Facturas.jpg)
 
-En este diagrama modelamos la solución del problema de pago de facturas de diferentes proveedores y que sea transparente el ingreso de un nuevo convenio de pago de facturas ya sea a través de servicios Rest o Soap.
-Como podemos ver tendremos un único punto de acceso de las peticiones desde los diferentes canales de pago a través de un API gateway, este API hará el llamado a los servicios que tenemos expuestos para los clientes, que son la validación del cliente, la consulta del valor a cancelar de una factura por un convenio específico, o el pago de una factura por un convenio, en ambos casos se hace el llamado del servicio de validación del convenio, una vez se confirma el pago se hace el llamado con el servicio de pago al servicio expuesto por el proveedor para realizar el pago y con la confirmación o no del mismo haremos el llamado al proceso de notificaciones que tenemos a través de los servicios de Kafka, esté al recibir el mensaje lo direcciona a las colas que tiene para realizar el evento de notificación que hace el llamado a nuestro servicio de notificación que tenemos con el que se le enviara por correo electrónico la evidencia al cliente de la confirmación del pago de la factura de servicios.
-Todos nuestro servicios tienen su propia base de persisitencia de datos.
+En este diagrama se modela la solución del problema de pago de facturas de diferentes proveedores, los cuales se pueden adicionar a través del esquema
+de configuración registrando los servicios que ellos exponen, para la consulta, pago y compensación de facturas, indiferentemente de si los servicios
+se exponen a través de REST o SOAP. 
+
+Como se puede observar se tiene un único punto de acceso de las peticiones desde los diferentes canales de pago a través de un API gateway, este API expone
+las capacidades de Consulta, Pago y Compensación de Facturas que se tienen expuestas para los clientes, las cuales a su vez son redireccionadas al proveedor
+del servicio correspondiente a través una funcionalidad que implementa el patrón <strong> Intermediate Routing </strong> que permite invocar al servicio correspondiente
+de acuerdo al proveedor de servicio seleccionado por el cliente al momento de realizar la transacción.
+
+Se desarrollaron 4 microservicios, uno denominado <b>Usuario</b>, permite la gestión del registro de usuarios del sistema, el de <b>Convenios</b>, para la gestión de la 
+información de los proveedores de servicios, dentro de éste también se permite el registro de la configuración de los servicios que expone cada proveedor. el Servicio 
+de <b>Pagos</b> que es el que expone las funcionalidad hacia el cliente para la consulta, pago o compensación de una factura, y el servicio de <b>Notificación</b> encargado
+de enviar la notificación del resultado de la transacción al cliente por correo electrónico.
+
+En la siguiente gráfica se ilustra el proceso de pago, donde un usuario que desea realizar un pago, inicia autenticándose a través del microservicio de <b>Usuario</b>, luego
+consulta la información de los convenios de recaudo activos a través del micro servicio <b>Convenio</b>, invoca el servicio de pagar factura, implementado por el microservicio
+<b>Pago</b> Este servicio a utiliza la estrategia de <b>orquestación</b> para invocar los servicios de <b>Usuario</b> para taer la información del cliente que está realizando
+la transacción, y de <b>Convenio</b> para obtener la configuración y la ruta para invocar el servicio del proveedor correspondiente que a su vez también hace parte de
+esta <b>orquestación</b>, una vez se obtiene la respuesta del servicio del proveedor, se hace envía el evento de notificación de la respuesta a través de Kafka  de forma
+asíncrona, para que el servicio de notificaciones envíe el correo <b> Coreografía </b>
 
 
+![picture](ProcesoPago.jpg)
 
 <h2> Arquitectura </h2>
-
 
 
 
@@ -19,6 +36,13 @@ Todos nuestro servicios tienen su propia base de persisitencia de datos.
 <h3>Patrones de Colaboración/Composición entre Servicios</h3>
 <p>La arquitectura implementa varios patrones de colaboración entre servicios, la mayoría de los microservicios implementan comunicación/composición a través de REST Síncronos, pero el módulo de notificaciones y pagos  implementan un patrón de colaboración a través de eventos coreográficos(asíncronos).</p>
 
+<h3>Principio del "Contrato Primero"</h3>
+Para cada uno de los servicios implementados, se definión, primero el contrato basados en la especificación OpenAPI 3.0.3, los contratos de los servicios se pueden encontrar
+en a continuación:
+
+[Contrato Servicio Convenios](Contracts/Convenios.yaml) <br/>
+[Contrato Servicio Usuarios](Contracts/Usuario.yaml) <br/>
+[Contrato Servicio Pagos](Contracts/PagoDispatcher.yaml)
 
 
 <h2>Infraestructura Tecnológica</h2>
