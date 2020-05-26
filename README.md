@@ -13,7 +13,7 @@ All the code in this repo is under ![picture](https://img.shields.io/badge/licen
 ```
 MIT License
 
-Copyright (c) 2019 Bayron Martinez Martinez bmartinezb@gmail.com
+Copyright (c) 2019 Byron Martinez Martinez bmartinezb@gmail.com
 Edgard Javier Rivera  ejavier354@gmail.com
 Jose Rafael Ocampo jocampo@gmail.com
 
