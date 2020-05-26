@@ -1,6 +1,6 @@
 container:
   name: usuario
-  image: rocampoa/usuario:latest
+  image: rocampoa/usuarios:1.0
   port: 8186
 label: usuario
 deploy:

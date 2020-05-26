@@ -1,6 +1,6 @@
 container:
   name: convenio
-  image: rocampoa/convenio:latest
+  image: rocampoa/convenio:1.0
   port: 8185
 label: convenio
 deploy:

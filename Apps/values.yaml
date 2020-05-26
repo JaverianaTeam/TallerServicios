@@ -1,0 +1,7 @@
+
+# Jenkins
+rbac:
+    create: true
+master:
+    servicePort: 80
+    serviceType: LoadBalancer

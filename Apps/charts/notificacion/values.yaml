@@ -1,6 +1,6 @@
 container:
   name: notificacion
-  image: rocampoa/notificacion:latest
+  image: rocampoa/notificacion:1.3
   port: 8188
 label: notificacion
 deploy:

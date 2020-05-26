@@ -1,6 +1,6 @@
 container:
   name: pagos
-  image: rocampoa/pagos:latest
+  image: rocampoa/pagos:1.2
   port: 8187
 label: pagos
 deploy:

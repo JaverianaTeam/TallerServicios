@@ -53,6 +53,5 @@ var=$(echo "$var" | sed  "s,:,\\\:,g") && echo $var && var=$(echo "$var" | sed  
 
 echo " $(date): AWS authenticator configuration Applied"
 echo "Removing temporal files.."
-rm -fr aws-auth-cm.yaml
 rm -fr aws-auth-cm.yaml.original
 echo "Succeed!"
