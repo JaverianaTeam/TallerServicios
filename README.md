@@ -1,5 +1,11 @@
 # Taller De Servicios de ModVal EAS
 
+<b>Integrantes:</b> <br/>
+Byron Martínez Martínez <br/>
+Edgar Javier Rivera Flórez <br/>
+José Rafael Ocampo Antero <br/>
+
+
 ![picture](Diagrama%20Servicios%20Facturas.jpg)
 
 <p>En este diagrama se modela la solución del problema de pago de facturas de diferentes proveedores, los cuales se pueden adicionar a través del esquema
@@ -63,6 +69,19 @@ correctamente los llamados a los servicios de los diferentes convenios de recaud
 
 ![picture](IntermediateRouting.png)
 
+A continuación un par de ejemplos de los objetos que representan cada convenio, junto con la configuración que permite el enrutamiento y llamado a cada uno
+de los servicios que ofrece el proveedor, esta configuración se encuentra en la base de datos del servicio de Convenio y es éste servicio el encargado de 
+devolver estos objetos de acuerdo al código del convenio.
+
+Proveedor que dispone servicios REST
+
+![picture](ConfiguracionREST.jpg)
+
+
+Proveedor que dispone servicios SOAP
+![picture](ConfiguracionSOAP.jpg)
+
+Esta flexibilidad en la configuración permite que un proveedor pueda exponer sus capacidades con servicios SOAP y REST simultáneamente, y la solución lo soporta.
 
 
 <p>La arquitectura implementa varios patrones de colaboración entre servicios, la mayoría de los microservicios implementan comunicación/composición a través de REST Síncronos, pero el módulo de notificaciones y pagos  implementan un patrón de colaboración a través de eventos coreográficos(asíncronos).</p>
@@ -80,12 +99,11 @@ correctamente los llamados a los servicios de los diferentes convenios de recaud
 [Definición de la Infraestrcutura](Infraestructura/aws_eks/README.md)
 
 
-
 <h2>Deployment</h2>
 
 <p>Los microservicios fueron desarrollados en Spring Boot empaquetados y desplegados sobre Kubernetes utilizando charts de Helm.</p> 
 
-[Charts Helm](Apps/)
+[Charts Helm](Apps/startup-apps.sh)
 
 <p>Para facilitar la instalación y el deployment de todos los servicios, incluyendo Kafka y Zookeeper, creamos el siguiente script. Es decir, después del despliegue de la infraestructura se debería correr este script. Este script se apoya de helm y kubectl, por lo que es importante tener estas dos herramientas instaladas y configuradas correctamente.</p>
 
