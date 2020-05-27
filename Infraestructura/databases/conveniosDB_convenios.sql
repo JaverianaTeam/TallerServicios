@@ -1,0 +1,2 @@
+INSERT INTO conveniosDB.convenios (partner_id, partner_name, status, description) VALUES (1, 'GAS-Service', 1, 'Convenio de recaudo de gas');
+INSERT INTO conveniosDB.convenios (partner_id, partner_name, status, description) VALUES (2, 'Water-Service', 1, 'Convenio de recaudo de Agua');
